@@ -1,40 +1,59 @@
 class Hover {
     constructor(option) {
         if (typeof option.el == 'string') {
-            this.el = document.querySelector(option.el)
+            this.el = document.querySelector(option.el);
         } else if (option.el instanceof HTMLElement) {
-            this.el = option.el
+            this.el = option.el;
         }
-        // this.el.style.transition = '0.3s'
-        this.el.addEventListener('click', () => this.move())
+
+        this.el.addEventListener('mouseenter', () => this.hover());
+        this.el.addEventListener('click', () => this.move());
+
+        const stayElement = document.querySelector('.content__stay');
+        stayElement.addEventListener('click', () => this.changeTextYes());
+
+        const moveElement = document.querySelector('.content__move');
+        moveElement.addEventListener('click', () => this.changeTextNo());
+        
+        this.messages = [
+            'Подумай лучше !',
+            'Не ври себе!',
+            'Не спеши с ответом подумай лучше!)',
+            'Это не то, что я хотел бы услышать...((',
+            'Не ужели всё что было ложь?!',
+            'Скорее всего, ты шутишь!',
+            'А вот и не угадал!',
+            'Не совсем правильный выбор...',
+            'Возможно, тебе стоит подумать еще раз!'
+        ];
     }
+
     random(min, max) {
-        console.log(1);
-        return Math.floor(Math.random() * (max + 1 - min) - min)
+        return Math.floor(Math.random() * (max - min + 1) + min);
     }
+
+    hover() {
+        this.el.style.cursor = 'pointer';
+    }
+
     move() {
-        this.el.style.position = 'fixed'
-        this.el.style.left = this.random(0, innerWidth - this.el.clientWidth) + 'px'
-        this.el.style.top = this.random(0, innerHeight - this.el.clientWidth) + 'px'
+        this.el.style.position = 'fixed';
+        this.el.style.left = this.random(0, innerWidth - this.el.clientWidth) + 'px';
+        this.el.style.top = this.random(0, innerHeight - this.el.clientWidth) + 'px';
+    }
+
+    changeTextYes() {
+        const titleElement = document.querySelector('.title');
+        titleElement.textContent = 'Я тоже тебя люблю, лакомка!';
+    }
+
+    changeTextNo() {
+        const titleElement = document.querySelector('.title');
+        const randomIndex = this.random(0, this.messages.length - 1);
+        titleElement.textContent = this.messages[randomIndex];
     }
 }
-
-function openFullscreen() {
-    var elem = document.documentElement;
-    if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-    } else if (elem.webkitRequestFullscreen) { /* Safari */
-        elem.webkitRequestFullscreen();
-    } else if (elem.msRequestFullscreen) { /* IE11 */
-        elem.msRequestFullscreen();
-    }
-}
-
-// Вызываем функцию при загрузке страницы
-window.onload = function() {
-    openFullscreen();
-};
 
 const btn = new Hover({
     el: '.content__move'
-})
+});

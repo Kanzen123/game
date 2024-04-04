@@ -5,8 +5,15 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+body{
+    background-image: url(./img/Love-1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .header {
     height: 100svh;
+    
 }
 
 .header__content {
@@ -17,6 +24,9 @@
     align-items: center;
     gap: 30px;
     justify-content: center;
+}
+.title{
+    color: azure;
 }
 
 .btn {
@@ -30,6 +40,9 @@
 
 .content__stay {
     background: green;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
 }
 
 .btns {
@@ -41,6 +54,8 @@
 }
 
 .content__move {
-    margin: auto;
     background: red;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
 }
